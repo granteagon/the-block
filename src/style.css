@@ -2,6 +2,10 @@
 :root {
   --blue: #0061ff;
   --blue-hover: #004dcc;
+  --auction-danger: #c62848;
+  --auction-danger-hover: #a51d39;
+  --auction-danger-soft: #fff0f3;
+  --auction-danger-ink: #991e38;
   --navy: #0a1b5f;
   --canvas: #f4f4f4;
   --text-secondary: #505a73;
@@ -1083,7 +1087,7 @@ button { transition: background-color .15s, border-color .15s; }
 /* Auction feedback: outcome is communicated with words, icons and color. */
 .bid-panel { overflow: hidden; --state-color: #0061ff; --state-ink: #fff; border: 2px solid var(--state-color); }
 .auction-leading { --state-color: #0061ff; }
-.auction-outbid, .auction-competition { --state-color: #b63216; }
+.auction-outbid, .auction-competition { --state-color: var(--auction-danger); }
 .auction-won { --state-color: #08764f; }
 .auction-lost, .auction-closed { --state-color: #0a1b5f; }
 .auction-state { display: flex; gap: 14px; background: var(--state-color); color: var(--state-ink); padding: 26px 28px; margin: -28px -28px 24px; animation: auction-arrive .35s ease-out; }
@@ -1093,16 +1097,16 @@ button { transition: background-color .15s, border-color .15s; }
 .state-kicker { font-size: 12px; letter-spacing: 1.2px; font-weight: 600; }
 .price-update { animation: price-arrive .4s ease-out; }
 .position { background: #eaf1ff; color: #0a1b5f; border-left: 4px solid #0061ff; }
-.position.attention { background: #fff0e9; color: #972810; border-left-color: #b63216; }
+.position.attention { background: var(--auction-danger-soft); color: var(--auction-danger-ink); border-left-color: var(--auction-danger); }
 .bid-status { background: #0061ff; color: #fff; border-radius: 999px; padding: 6px 12px; }
-.bid-status.attention { background: #b63216; color: #fff; }
+.bid-status.attention { background: var(--auction-danger); color: #fff; }
 .auction-won .position { border-left-color: #08764f; background: #e4f6ee; }
-.auction-outbid form > button { background: #b63216; }
-.auction-outbid form > button:hover { background: #90250f; }
+.auction-outbid form > button { background: var(--auction-danger); }
+.auction-outbid form > button:hover { background: var(--auction-danger-hover); }
 .demo-controls button { display: flex; align-items: center; justify-content: center; gap: 8px; }
 .closed-message { border-top: 3px solid var(--state-color); }
 .toast { position: fixed; z-index: 20; right: 24px; bottom: 24px; width: min(440px, calc(100vw - 32px)); margin: 0; padding: 20px; border: 0; border-radius: 18px; background: #0061ff; color: #fff; box-shadow: 0 12px 40px #0a1b5f40; align-items: flex-start; animation: auction-arrive .3s ease-out; }
-.toast-warning { background: #b63216; }
+.toast-warning { background: var(--auction-danger); }
 .toast-closed { background: #0a1b5f; }
 .toast strong { display: block; font-size: 18px; margin-bottom: 5px; }
 .toast span span { display: block; font-size: 14px; line-height: 1.6; }
