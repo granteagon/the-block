@@ -39,7 +39,9 @@ The supplied image URLs are placeholders, explicitly labeled in vehicle details.
 
 ## Structure and decisions
 
-- `src/main.jsx`: inventory, detail view, URL navigation, and local bid persistence.
+- `src/App.jsx`: shared state and URL navigation.
+- `src/Inventory.jsx`, `src/Detail.jsx`, `src/BidPanel.jsx`, `src/Photo.jsx`: focused UI components.
+- `src/storage.js`: validated bid persistence with graceful storage-failure handling.
 - `src/auction.js`: pure bid rules, shared by review/confirmation and tested independently.
 - `src/style.css`: responsive presentation.
 - `data/vehicles.json`: original inventory, unmodified.
@@ -48,11 +50,11 @@ A small React application keeps the browse → inspect → bid flow easy to foll
 
 ## Validation
 
-`npm test` covers opening bids, minimum increases, invalid amounts, and accepted bid state transitions. `npm run build` checks production bundling. These checks do not establish cross-browser or assistive-technology compatibility.
+`npm test` covers opening bids, minimum increases, invalid amounts, accepted bid state transitions, blocked storage, malformed saved data, and persistence round trips. `npm run build` checks production bundling. Manual browser checks cover mobile detail/inventory layouts at 390px, empty search and recovery, invalid bids, cancellation without state changes, browser back preserving search, and bid persistence after reload. These checks do not establish cross-browser or assistive-technology compatibility.
 
 ## With more time
 
-Split UI into smaller component files, add end-to-end coverage for search and bidding, refine the mobile detail order, and test keyboard/screen-reader navigation. Real auctions would require server validation, concurrent-bid handling, authenticated buyers, authoritative scheduling, and a durable bid history.
+Add automated end-to-end coverage for search and bidding, and test screen-reader navigation. Real auctions would require server validation, concurrent-bid handling, authenticated buyers, authoritative scheduling, and a durable bid history.
 
 ## Workflow and time
 
