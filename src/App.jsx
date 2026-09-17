@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Heart, Gavel, LayoutGrid, CheckCircle2, AlertTriangle, Radio, X } from "lucide-react";
+import { Heart, Gavel, LayoutGrid } from "lucide-react";
 import inventory from "../data/vehicles.json";
 import { placeBid, endTime, auctionStatus } from "./auction";
 import { money } from "./format";
@@ -10,6 +10,7 @@ import {
   savePreferences,
 } from "./storage";
 import Detail from "./Detail";
+import Toast from "./Toast";
 import Inventory from "./Inventory";
 const readRoute = () => {
   const p = new URLSearchParams(location.search);
@@ -186,16 +187,7 @@ export default function App() {
           </p>
         )}
         {notice && (
-          <div key={notice.id} className={`toast toast-${notice.tone}`} role={notice.tone === "warning" ? "alert" : "status"}>
-            {notice.tone === "warning" ? <AlertTriangle size={26} /> : notice.tone === "closed" ? <Gavel size={26} /> : notice.tone === "info" ? <Radio size={26} /> : <CheckCircle2 size={26} />}
-            <span><strong>{notice.title}</strong><span>{notice.message}</span></span>
-            <button
-              aria-label="Dismiss notification"
-              onClick={() => setNotice("")}
-            >
-              <X size={18} />
-            </button>
-          </div>
+          <Toast key={notice.id} notice={notice} dismiss={() => setNotice("")} />
         )}
         {route.selected && !current ? (
           <section className="empty">
