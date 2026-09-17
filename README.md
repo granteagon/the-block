@@ -2,6 +2,14 @@
 
 A responsive buyer-side auction prototype built with React + Vite and the supplied 200-vehicle dataset. Browse inventory, inspect condition disclosures, save a shortlist, place a bid, and track your position through auction closure.
 
+## Reviewer guide
+
+Start with the **[challenge audit and bonus-feature report](docs/CHALLENGE_AUDIT.md)** for the requirements matrix, implementation evidence, optional enhancements, test results, and known limitations. This version renders directly on GitHub.
+
+A **[styled HTML edition](docs/CHALLENGE_AUDIT.html)** includes visual summaries, bonus-feature cards, section navigation, and print/PDF styles. Download and open it in a browser, or visit `/docs/CHALLENGE_AUDIT.html` on the local Vite server after following the setup below. GitHub displays HTML source rather than rendering the report as a page.
+
+For the walkthrough, use the **A two-minute demo** section below. The original instructions are preserved in [CHALLENGE.md](CHALLENGE.md), with interview expectations in [WALKTHROUGH.md](WALKTHROUGH.md).
+
 ## Run locally
 
 Use Node.js 22.12+ and npm (development verified on Node 26).
