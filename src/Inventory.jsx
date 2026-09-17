@@ -149,7 +149,7 @@ export default function Inventory({
             <div className="card-body">
               <AuctionBadge vehicle={v} now={now} />
               <div className="card-meta">
-                <span>{v.body_style}</span>
+                <span>{v.body_style.charAt(0).toUpperCase() + v.body_style.slice(1)}</span>
                 <span>Condition {v.condition_grade.toFixed(1)}</span>
               </div>
               <h3>
