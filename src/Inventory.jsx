@@ -99,6 +99,32 @@ export default function Inventory({
               <p className="location">
                 {v.city}, {v.province}
               </p>
+              <div className="condition-summary">
+                <span
+                  className={
+                    v.title_status === "clean"
+                      ? "title-status"
+                      : "title-status attention"
+                  }
+                >
+                  Title: {v.title_status}
+                </span>
+                <p>
+                  <strong>
+                    {v.damage_notes.length
+                      ? `${v.damage_notes.length} damage ${v.damage_notes.length === 1 ? "note" : "notes"}`
+                      : "No damage notes reported"}
+                  </strong>
+                </p>
+                {v.damage_notes.length > 0 && (
+                  <p>
+                    {v.damage_notes[0]}
+                    {v.damage_notes.length > 1
+                      ? ` · +${v.damage_notes.length - 1} more in details`
+                      : ""}
+                  </p>
+                )}
+              </div>
               <div className="card-bottom">
                 <div>
                   <small>

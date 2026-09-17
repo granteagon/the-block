@@ -23,6 +23,7 @@ npm run preview
 
 - Inventory search by year, make, model, trim, location, and lot number.
 - Body-style filtering and sorting by lot, price, or mileage.
+- Condition grade, title status, damage-note count, and the first reported issue visible on inventory cards.
 - Shareable vehicle detail URLs with specifications, dealership, condition report, title status, damage notes, and photo selection.
 - Bid validation, an explicit review/confirmation step, updated bid price/count, and local persistence across reloads.
 - Responsive layouts, labeled controls, keyboard focus indicators, and status announcements.
@@ -50,7 +51,7 @@ A small React application keeps the browse → inspect → bid flow easy to foll
 
 ## Validation
 
-`npm test` covers opening bids, minimum increases, invalid amounts, accepted bid state transitions, blocked storage, malformed saved data, and persistence round trips. `npm run build` checks production bundling. Manual browser checks cover mobile detail/inventory layouts at 390px, empty search and recovery, invalid bids, cancellation without state changes, browser back preserving search, and bid persistence after reload. These checks do not establish cross-browser or assistive-technology compatibility.
+`npm test` covers opening bids, minimum increases, invalid amounts, accepted bid state transitions, blocked storage, malformed saved data, and persistence round trips. `npm run build` checks production bundling. Manual browser checks cover mobile detail/inventory layouts at 320px and 390px (no horizontal overflow at 320px), empty search and recovery, invalid bids, cancellation without state changes, browser back preserving search, photo selection, successful mobile bid confirmation, and bid persistence after reload. These checks do not establish cross-browser or assistive-technology compatibility.
 
 ## With more time
 
