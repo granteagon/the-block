@@ -90,3 +90,5 @@ Original prompt: [CHALLENGE.md](CHALLENGE.md). Interview expectations: [WALKTHRO
 ### Visual styling
 
 The shared styles use the public [OPENLANE US site](https://www.openlane.com/) as a reference: Poppins, navy `#0a1b5f`, blue `#0061ff`, pill-shaped actions, outlined secondary actions, and a rounded white header. Typography is adapted for inventory: 16px body/fields, 14px supporting text, and larger headings and prices. Compact image labels and navigation counts use 12px. Mobile layouts preserve readable text and wrap controls instead of shrinking them. This is an independent implementation, not OPENLANE production CSS.
+
+Auction feedback uses persistent, icon-labelled state headers, strong warning notifications for competing bids, blue leading/reopened states, green won states and navy closed results. Price changes animate briefly, with reduced-motion support. Listing and detail photos fill their frames with `object-fit: cover`; the lightbox preserves the complete photo.

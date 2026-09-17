@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Heart, Gavel, LayoutGrid, CheckCircle2, X } from "lucide-react";
+import { Heart, Gavel, LayoutGrid, CheckCircle2, AlertTriangle, Radio, X } from "lucide-react";
 import inventory from "../data/vehicles.json";
 import { placeBid, endTime, auctionStatus } from "./auction";
 import { money } from "./format";
@@ -114,11 +114,14 @@ export default function App() {
     latest.current = { ...state, bids: next };
     setBids(next);
     if (!saveBids(next)) setStorageWarning(true);
-    setNotice(
-      actor === "buyer"
-        ? `Bid confirmed: ${money(amount)} on ${vehicle.year} ${vehicle.make} ${vehicle.model}.`
-        : `Demo bidder placed ${money(amount)}.${updated.my_bid ? " You have been outbid." : ""}`,
-    );
+    setNotice({
+      id: Date.now(),
+      tone: actor === "buyer" ? "success" : "warning",
+      title: actor === "buyer" ? "You're in the lead" : updated.my_bid ? "You've been outbid" : "New competing bid",
+      message: actor === "buyer"
+        ? `${money(amount)} confirmed on ${vehicle.year} ${vehicle.make} ${vehicle.model}.`
+        : `Another demo bidder raised the price to ${money(amount)}. Next bid: ${money(amount + 100)}.`,
+    });
   }
   function changeEnd(id, close) {
     const ends = {
@@ -127,11 +130,12 @@ export default function App() {
     };
     setPreferences((p) => ({ ...p, ends }));
     setNow(Date.now());
-    setNotice(
-      close
-        ? "Demo auction closed. Final status is shown below."
-        : "Demo auction reopened for 45 minutes.",
-    );
+    setNotice({
+      id: Date.now(),
+      tone: close ? "closed" : "info",
+      title: close ? "Auction closed" : "Back on the block",
+      message: close ? "Bidding has ended. Check the final outcome in the auction panel." : "The clock is reset. You have 45 minutes to make your move.",
+    });
   }
   const counts = {
     inventory: vehicles.length,
@@ -182,9 +186,9 @@ export default function App() {
           </p>
         )}
         {notice && (
-          <div className="toast" role="status">
-            <CheckCircle2 size={20} />
-            <span>{notice}</span>
+          <div key={notice.id} className={`toast toast-${notice.tone}`} role={notice.tone === "warning" ? "alert" : "status"}>
+            {notice.tone === "warning" ? <AlertTriangle size={26} /> : notice.tone === "closed" ? <Gavel size={26} /> : notice.tone === "info" ? <Radio size={26} /> : <CheckCircle2 size={26} />}
+            <span><strong>{notice.title}</strong><span>{notice.message}</span></span>
             <button
               aria-label="Dismiss notification"
               onClick={() => setNotice("")}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CheckCircle2, Gavel, FlaskConical } from "lucide-react";
+import { CheckCircle2, Gavel, FlaskConical, AlertTriangle, Trophy, Radio, TrendingUp } from "lucide-react";
 import { minimumBid, placeBid, isClosed, auctionStatus } from "./auction";
 import { money } from "./format";
 import AuctionBadge from "./AuctionBadge";
@@ -9,6 +9,10 @@ export default function BidPanel({ vehicle: v, bid, now, changeEnd }) {
     [confirm, setConfirm] = useState(false);
   const closed = isClosed(v, now),
     status = auctionStatus(v, now);
+  const [activity, setActivity] = useState(null);
+  const tone = closed ? (status === "Won (demo)" ? "won" : status === "Lost" ? "lost" : "closed") : status === "Outbid" ? "outbid" : status === "Leading" ? "leading" : activity === "competitor" ? "competition" : "open";
+  const StatusIcon = tone === "won" ? Trophy : ["outbid", "lost", "competition"].includes(tone) ? AlertTriangle : closed ? Gavel : tone === "leading" ? CheckCircle2 : Radio;
+  const headline = {won: "You won this round.", lost: "This round went to another bidder.", closed: v.current_bid < v.reserve_price ? "Reserve not met." : "Bidding has ended.", outbid: "You've been outbid.", leading: "You're in the lead.", competition: "The bidding just heated up.", open: "Your next move starts here."}[tone];
   const reviewRef = useRef(null),
     confirmRef = useRef(null);
   useEffect(() => {
@@ -23,13 +27,18 @@ export default function BidPanel({ vehicle: v, bid, now, changeEnd }) {
     requestAnimationFrame(() => reviewRef.current?.focus());
   }
   return (
-    <section className="panel bid-panel">
+    <section className={`panel bid-panel auction-${tone}`}>
+      <div key={`${tone}-${v.current_bid}-${v.ends_at}`} className="auction-state" role="status" aria-live="polite" aria-atomic="true">
+        <StatusIcon size={28} />
+        <div><span className="state-kicker">{closed ? "FINAL RESULT · DEMO" : "LIVE AUCTION · DEMO"}</span><h2>{headline}</h2>
+        <p>{tone === "outbid" || tone === "competition" ? `New high bid: ${money(v.current_bid)}. Bid ${money(minimumBid(v))} or more to take the lead.` : tone === "leading" ? `Your ${money(v.my_bid)} bid is on top. Stay close until the clock runs out.` : tone === "won" ? "Highest bid. Reserve met. This simulated auction is yours." : closed ? "The final result is recorded below." : "Review the vehicle and place your opening bid."}</p></div>
+      </div>
       <p className="eyebrow">TIMED AUCTION · SIMULATION</p>
       <AuctionBadge vehicle={v} now={now} />
       <p>
         {closed ? "Final bid" : v.current_bid ? "Current bid" : "Starting bid"}
       </p>
-      <div className="price">
+      <div key={v.current_bid} className="price price-update">
         {money(v.current_bid || v.starting_bid)} <small>CAD</small>
       </div>
       <p>
@@ -108,6 +117,7 @@ export default function BidPanel({ vehicle: v, bid, now, changeEnd }) {
                   onClick={() => {
                     try {
                       bid(v, Number(amount));
+                      setActivity("buyer");
                       setConfirm(false);
                       requestAnimationFrame(() => reviewRef.current?.focus());
                     } catch (err) {
@@ -124,7 +134,7 @@ export default function BidPanel({ vehicle: v, bid, now, changeEnd }) {
               </div>
             ) : (
               <button ref={reviewRef} type="submit">
-                Review bid
+                {status === "Outbid" ? "Take back the lead" : "Review bid"}
               </button>
             )}
           </form>
@@ -144,15 +154,16 @@ export default function BidPanel({ vehicle: v, bid, now, changeEnd }) {
           onClick={() => {
             try {
               bid(v, minimumBid(v), "competitor");
+              setActivity("competitor");
               setError("");
             } catch (err) {
               setError(err.message);
             }
           }}
         >
-          Simulate competing bid
+          <TrendingUp size={18} /> Simulate competing bid
         </button>
-        <button className="secondary" onClick={() => changeEnd(v.id, !closed)}>
+        <button className="secondary" onClick={() => { changeEnd(v.id, !closed); setActivity(null); }}>
           {closed ? "Reopen for 45 minutes" : "Close auction now"}
         </button>
       </details>

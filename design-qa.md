@@ -21,3 +21,7 @@ Interactions checked: vehicle navigation, bid review and cancel (no bid submitte
 Remaining limitations: no exhaustive screen-reader or cross-browser audit; Poppins uses Google Fonts with an Arial fallback when unavailable. Existing bundle-size warning remains unrelated to these styles.
 
 final result: passed
+
+## Auction interaction update
+
+User-directed visual update: saturated auction state headers and fixed notifications, explicit outbid action, animated price updates, and frame-filling vehicle photos. Verified competing bid before participating, buyer bid confirmation, subsequent outbid, closed/lost, reopening, and mobile review/cancel. At 390 × 844, measured no horizontal overflow; source images use cover in listing/detail and contain in the viewer. This supersedes the earlier whole-vehicle contain sizing note. Motion is disabled by prefers-reduced-motion. Won styling follows existing reserve-aware auctionStatus logic; this pass did not manually exercise a winning auction.

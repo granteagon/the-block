@@ -20,7 +20,7 @@ export default function AuctionBadge({ vehicle, now }) {
       </span>
       {vehicle.my_bid && (
         <span
-          className={`bid-status ${status === "Outbid" || status === "Lost" ? "attention" : ""}`}
+          className={`bid-status ${status === "Outbid" || status === "Lost" ? "attention" : status === "Won (demo)" ? "won" : closed ? "ended" : ""}`}
         >
           {status}
         </span>

@@ -1024,8 +1024,8 @@ select {
   object-position: center 75%;
 }
 
-/* Keep the whole reference vehicle visible across different source ratios. */
-.card-photo img, .hero-photo.gallery-trigger img { object-fit: contain; object-position: center; background: #e9edf1; }
+/* Fill listing frames; the lightbox preserves the complete source image. */
+.card-photo img, .hero-photo.gallery-trigger img { object-fit: cover; object-position: center; background: #e9edf1; }
 
 /* OPENLANE public-site type and control conventions, adapted to dense inventory. */
 h1, h2, h3 { font-weight: 600; }
@@ -1079,3 +1079,44 @@ button { transition: background-color .15s, border-color .15s; }
   dd { margin-left: auto; }
 }
 @media (prefers-reduced-motion: reduce) { button { transition: none; } }
+
+/* Auction feedback: outcome is communicated with words, icons and color. */
+.bid-panel { overflow: hidden; --state-color: #0061ff; --state-ink: #fff; border: 2px solid var(--state-color); }
+.auction-leading { --state-color: #0061ff; }
+.auction-outbid, .auction-competition { --state-color: #b63216; }
+.auction-won { --state-color: #08764f; }
+.auction-lost, .auction-closed { --state-color: #0a1b5f; }
+.auction-state { display: flex; gap: 14px; background: var(--state-color); color: var(--state-ink); padding: 26px 28px; margin: -28px -28px 24px; animation: auction-arrive .35s ease-out; }
+.auction-state > svg { flex-shrink: 0; margin-top: 4px; }
+.auction-state h2 { font-size: 26px; line-height: 1.2; margin: 8px 0 12px; color: inherit; }
+.auction-state p { color: inherit; font-size: 15px; line-height: 1.6; margin: 0; }
+.state-kicker { font-size: 12px; letter-spacing: 1.2px; font-weight: 600; }
+.price-update { animation: price-arrive .4s ease-out; }
+.position { background: #eaf1ff; color: #0a1b5f; border-left: 4px solid #0061ff; }
+.position.attention { background: #fff0e9; color: #972810; border-left-color: #b63216; }
+.bid-status { background: #0061ff; color: #fff; border-radius: 999px; padding: 6px 12px; }
+.bid-status.attention { background: #b63216; color: #fff; }
+.auction-won .position { border-left-color: #08764f; background: #e4f6ee; }
+.auction-outbid form > button { background: #b63216; }
+.auction-outbid form > button:hover { background: #90250f; }
+.demo-controls button { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.closed-message { border-top: 3px solid var(--state-color); }
+.toast { position: fixed; z-index: 20; right: 24px; bottom: 24px; width: min(440px, calc(100vw - 32px)); margin: 0; padding: 20px; border: 0; border-radius: 18px; background: #0061ff; color: #fff; box-shadow: 0 12px 40px #0a1b5f40; align-items: flex-start; animation: auction-arrive .3s ease-out; }
+.toast-warning { background: #b63216; }
+.toast-closed { background: #0a1b5f; }
+.toast strong { display: block; font-size: 18px; margin-bottom: 5px; }
+.toast span span { display: block; font-size: 14px; line-height: 1.6; }
+.toast button { min-height: 44px; min-width: 44px; padding: 10px; margin: -8px -8px 0 0; flex-shrink: 0; }
+.toast button:hover { background: #ffffff26; }
+.card-photo img, .hero-photo.gallery-trigger img, .thumbnails img { object-fit: cover; object-position: center; }
+@keyframes auction-arrive { from { opacity: .5; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes price-arrive { from { opacity: .5; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 700px) {
+  .auction-state { margin: -20px -20px 24px; padding: 24px 20px; gap: 10px; }
+  .auction-state h2 { font-size: 24px; }
+  .toast { right: 16px; bottom: 16px; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .auction-state, .price-update, .toast { animation: none; } }
+
+.bid-status.won { background: #08764f; }
+.bid-status.ended { background: #0a1b5f; }
