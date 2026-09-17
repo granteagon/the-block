@@ -145,7 +145,6 @@ export default function Inventory({
                   fill={watched.has(v.id) ? "currentColor" : "none"}
                 />
               </button>
-              <span className="image-label">{illustration(v).yearMatches ? "Model/year reference" : "Model reference"}</span>
             </div>
             <div className="card-body">
               <AuctionBadge vehicle={v} now={now} />

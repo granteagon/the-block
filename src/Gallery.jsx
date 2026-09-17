@@ -43,7 +43,6 @@ export default function Gallery({ vehicle: v }) {
         onClick={() => setOpen(true)}
       >
         <Photo key={photos[index].src} src={photos[index].src} alt={alt} />
-        <span className="image-label">{photos[index].label}</span>
         <span className="expand-label">
           <Maximize2 size={18} /> View photos
         </span>
