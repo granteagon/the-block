@@ -1,8 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 :root {
-  font-family: "DM Sans", sans-serif;
-  color: #182c27;
-  background: #f5f6f2;
+  --blue: #0061ff;
+  --blue-hover: #004dcc;
+  --navy: #0a1b5f;
+  --canvas: #f4f4f4;
+  --text-secondary: #505a73;
+  --pill: 9999px;
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: "Poppins", Arial, sans-serif;
+  color: var(--navy);
+  background: var(--canvas);
   font-synthesis: none;
 }
 * {
@@ -31,15 +39,16 @@ a {
 }
 button {
   cursor: pointer;
-  background: #1e5142;
+  background: var(--blue);
   color: white;
   border: 0;
-  border-radius: 7px;
-  padding: 14px 20px;
-  font-weight: 700;
+  border-radius: var(--pill);
+  min-height: 52px;
+  padding: 14px 28px;
+  font-weight: 600;
 }
 button:hover {
-  background: #12382d;
+  background: var(--blue-hover);
 }
 a:focus-visible,
 button:focus-visible,
@@ -49,7 +58,9 @@ select:focus-visible {
   outline-offset: 4px;
 }
 header {
-  padding: 24px 5%;
+  padding: 14px 24px;
+  margin: 16px 24px 0;
+  border-radius: var(--pill);
   border-bottom: 1px solid #d8ded6;
   display: flex;
   align-items: center;
@@ -59,18 +70,18 @@ header {
 .brand {
   text-decoration: none;
   font-size: 25px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -1px;
 }
 .brand span {
   display: block;
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 3px;
   margin-top: 3px;
 }
 .prototype {
-  font-size: 12px;
-  color: #52645b;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 main {
   max-width: 1440px;
@@ -84,15 +95,15 @@ main {
   padding: 55px 0 40px;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: #476658;
+  color: var(--blue);
 }
 h1,
 h2,
 h3 {
-  font-family: Manrope, sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
 }
 h1 {
   font-size: clamp(32px, 4.3vw, 58px);
@@ -101,15 +112,15 @@ h1 {
   margin: 15px 0 20px;
 }
 h2 {
-  font-size: 21px;
+  font-size: 26px;
 }
 h3 {
-  font-size: 18px;
+  font-size: 21px;
   margin: 12px 0;
 }
 p {
   line-height: 1.6;
-  color: #53645d;
+  color: var(--text-secondary);
 }
 .inventory-count {
   border-left: 1px solid #ccd5c9;
@@ -124,8 +135,8 @@ p {
   letter-spacing: -4px;
 }
 .inventory-count span {
-  font-size: 13px;
-  color: #53645d;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 .filters {
   display: flex;
@@ -135,7 +146,7 @@ p {
   border-radius: 10px;
 }
 label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   display: block;
 }
@@ -146,10 +157,10 @@ select {
   margin-top: 8px;
   border: 1px solid #bbc8bd;
   background: #fff;
-  border-radius: 6px;
-  padding: 13px 12px;
-  color: #182c27;
-  min-height: 46px;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--navy);
+  min-height: 52px;
 }
 .search {
   flex: 1;
@@ -164,8 +175,8 @@ select {
   margin: 24px 0 10px;
 }
 .results span {
-  font-size: 13px;
-  color: #53645d;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 .grid {
   display: grid;
@@ -201,7 +212,7 @@ select {
   position: absolute;
   top: 12px;
   left: 12px;
-  font-size: 10px;
+  font-size: 14px;
   background: white;
   padding: 6px 8px;
   border-radius: 4px;
@@ -212,11 +223,11 @@ select {
 .card-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
-  color: #4e6558;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 .card p {
-  font-size: 13px;
+  font-size: 16px;
   margin: 5px 0;
 }
 .card .location {
@@ -233,15 +244,15 @@ select {
 }
 .card-bottom small {
   display: block;
-  color: #59695e;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: 14px;
   margin-bottom: 5px;
 }
 .card-bottom strong {
-  font-size: 23px;
+  font-size: 28px;
 }
 .card-bottom > span {
-  font-size: 11px;
+  font-size: 14px;
 }
 .empty {
   text-align: center;
@@ -249,7 +260,7 @@ select {
 }
 .back {
   background: transparent;
-  color: #244837;
+  color: var(--blue);
   padding: 0;
   margin-top: 30px;
 }
@@ -288,7 +299,7 @@ select {
   border: 2px solid transparent;
 }
 .thumbnails button.active {
-  border-color: #225642;
+  border-color: var(--blue);
 }
 .thumbnails img {
   width: 100%;
@@ -306,7 +317,7 @@ select {
 }
 .panel p,
 .panel li {
-  font-size: 14px;
+  font-size: 16px;
 }
 .panel li {
   margin: 10px 0;
@@ -317,7 +328,7 @@ select {
   flex-wrap: wrap;
 }
 .badges span {
-  font-size: 12px;
+  font-size: 14px;
   background: #eaf0e5;
   padding: 7px 10px;
   border-radius: 4px;
@@ -332,10 +343,10 @@ dl > div {
   gap: 20px;
   padding: 13px 0;
   border-bottom: 1px solid #edf0e9;
-  font-size: 13px;
+  font-size: 14px;
 }
 dt {
-  color: #53645d;
+  color: var(--text-secondary);
 }
 dd {
   margin: 0;
@@ -348,9 +359,9 @@ dd {
   letter-spacing: -1px;
 }
 .price small {
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0;
-  color: #53645d;
+  color: var(--text-secondary);
 }
 hr {
   border: 0;
@@ -361,13 +372,13 @@ hr {
   width: 100%;
 }
 .muted {
-  font-size: 12px !important;
-  color: #627265;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 .secondary {
   margin-top: 10px;
   background: #e8ede4;
-  color: #244837;
+  color: var(--blue);
 }
 .secondary:hover {
   background: #d9e3d1;
@@ -399,11 +410,11 @@ footer {
   padding: 25px 5%;
   border-top: 1px solid #dce3d9;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
 }
 footer span {
   font-weight: 400;
-  color: #53645d;
+  color: var(--text-secondary);
 }
 @media (max-width: 1050px) {
   .grid {
@@ -475,7 +486,7 @@ footer span {
   color: #294937;
   padding: 5px 8px;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 14px;
   text-transform: capitalize;
   margin-bottom: 5px;
 }
@@ -503,14 +514,14 @@ footer span {
 }
 /* Public OPENLANE-inspired palette; original implementation. */
 :root {
-  color: #141b4d;
-  background: #f5f6f8;
+  color: var(--navy);
+  background: var(--canvas);
 }
 p,
 .muted,
 .prototype,
 footer span {
-  color: #5c637b;
+  color: var(--text-secondary);
 }
 header {
   background: #fff;
@@ -518,11 +529,11 @@ header {
   gap: 28px;
 }
 .brand {
-  color: #141b4d;
+  color: var(--navy);
   white-space: nowrap;
 }
 .brand span {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 2px;
 }
 header nav {
@@ -534,30 +545,30 @@ header nav {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 15px;
+  padding: 12px 20px;
   background: transparent;
-  color: #5c637b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 .nav-item span {
-  font-size: 11px;
+  font-size: 12px;
   background: #e8ebf3;
   padding: 2px 6px;
   border-radius: 10px;
 }
 .nav-item.active {
   background: #edf3ff;
-  color: #0055e8;
+  color: var(--blue);
 }
 .nav-item:hover {
   background: #edf3ff;
 }
 button {
-  background: #0055f5;
-  border-radius: 8px;
+  background: var(--blue);
+  border-radius: var(--pill);
 }
 button:hover {
-  background: #0044c7;
+  background: var(--blue-hover);
 }
 button:disabled {
   opacity: 0.45;
@@ -567,17 +578,17 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline-color: #0055f5;
+  outline-color: var(--blue);
 }
 .eyebrow {
-  color: #0055dd;
+  color: var(--blue);
 }
 .intro {
   padding: 48px 0 32px;
 }
 .intro h1 {
   max-width: 720px;
-  font-size: clamp(34px, 4vw, 54px);
+  font-size: clamp(36px, 4vw, 58px);
 }
 .inventory-count {
   border-color: #d7dce8;
@@ -585,11 +596,11 @@ select:focus-visible {
   padding: 20px 0 20px 32px;
 }
 .inventory-count strong {
-  color: #0055f5;
+  color: var(--blue);
 }
 .demo-note {
-  font-size: 11px;
-  color: #5c637b;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 .filters {
   background: #fff;
@@ -603,7 +614,9 @@ select:focus-visible {
 input,
 select {
   border-color: #cdd3e0;
-  color: #141b4d;
+  color: var(--navy);
+  font-size: 16px;
+  font-weight: 400;
 }
 .card {
   border-color: #e0e3eb;
@@ -631,11 +644,11 @@ select {
   text-decoration: none;
 }
 .card h3 a:hover {
-  color: #0055f5;
+  color: var(--blue);
   text-decoration: underline;
 }
 .card-meta {
-  color: #5c637b;
+  color: var(--text-secondary);
   margin-top: 16px;
 }
 .card-bottom > span {
@@ -648,19 +661,20 @@ select {
   right: 12px;
   top: 12px;
   padding: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
   display: grid;
   place-items: center;
   background: white;
-  color: #141b4d;
+  color: var(--navy);
   border-radius: 50%;
   box-shadow: 0 2px 8px #141b4d20;
 }
 .watch-button:hover,
 .watch-button[aria-pressed="true"] {
   background: #edf3ff;
-  color: #0055f5;
+  color: var(--blue);
 }
 .image-label {
   position: absolute;
@@ -670,7 +684,7 @@ select {
   color: #fff;
   padding: 5px 8px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
 }
 .auction-line {
@@ -684,10 +698,10 @@ select {
   display: inline-flex;
   gap: 5px;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: #0055dd;
+  color: var(--blue);
 }
 .countdown.closed {
   color: #62697b;
@@ -696,12 +710,12 @@ select {
   color: #a54116;
 }
 .bid-status {
-  font-size: 11px;
+  font-size: 14px;
   background: #e3f3ed;
   color: #206246;
   padding: 4px 7px;
   border-radius: 4px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .attention,
 .badges .attention {
@@ -756,7 +770,7 @@ select {
   margin-top: 20px;
 }
 .back {
-  color: #0055dd;
+  color: var(--blue);
 }
 .save-detail {
   display: flex;
@@ -769,8 +783,9 @@ select {
   border-color: #e0e3eb;
 }
 .secondary {
-  background: #edf1fa;
-  color: #22407b;
+  background: #fff;
+  border: 2px solid var(--blue);
+  color: var(--blue);
 }
 .secondary:hover {
   background: #dce6fa;
@@ -783,6 +798,7 @@ select {
   border: 0;
 }
 .expand-label {
+  min-height: 44px;
   display: inline-flex;
   gap: 7px;
   align-items: center;
@@ -790,10 +806,10 @@ select {
   right: 12px;
   bottom: 10px;
   padding: 8px 10px;
-  border-radius: 6px;
-  font-size: 12px;
+  border-radius: var(--pill);
+  font-size: 14px;
   background: white;
-  color: #141b4d;
+  color: var(--navy);
 }
 .thumbnails button {
   width: calc(25% - 9px);
@@ -806,7 +822,7 @@ select {
   border-radius: 3px;
 }
 .thumbnails button.active {
-  border-color: #0055f5;
+  border-color: var(--blue);
 }
 .badges span {
   background: #edf0f7;
@@ -827,7 +843,7 @@ select {
   border-radius: 7px;
 }
 .position span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .position.attention {
   color: #8b3f11;
@@ -853,8 +869,8 @@ select {
 }
 .demo-controls summary {
   cursor: pointer;
-  color: #5c637b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: 14px;
   font-weight: 600;
 }
 .demo-controls summary svg {
@@ -862,10 +878,10 @@ select {
   margin-right: 5px;
 }
 .demo-controls p {
-  font-size: 12px;
+  font-size: 14px;
 }
 .demo-controls button {
-  font-size: 12px;
+  font-size: 14px;
 }
 .lightbox {
   width: min(1100px, 95vw);
@@ -873,7 +889,7 @@ select {
   padding: 18px;
   border: 0;
   border-radius: 12px;
-  color: #141b4d;
+  color: var(--navy);
 }
 .lightbox::backdrop {
   background: #0b1039df;
@@ -893,7 +909,7 @@ select {
   display: grid;
   place-items: center;
   background: #edf1fa;
-  color: #141b4d;
+  color: var(--navy);
   min-width: 44px;
   min-height: 44px;
 }
@@ -909,14 +925,14 @@ select {
 }
 .lightbox-footer p {
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
 }
 .lightbox-footer small {
   display: block;
-  font-size: 11px;
+  font-size: 14px;
 }
 .empty > svg {
-  color: #0055dd;
+  color: var(--blue);
 }
 @media (min-width: 1000px) {
   .bid-panel {
@@ -943,7 +959,7 @@ select {
 @media (max-width: 700px) {
   .nav-item {
     padding: 12px 10px;
-    font-size: 12px;
+    font-size: 14px;
     gap: 6px;
   }
   header nav {
@@ -955,7 +971,7 @@ select {
   }
   .prototype {
     max-width: 110px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .intro {
     padding-top: 30px;
@@ -964,15 +980,16 @@ select {
     letter-spacing: -1.5px;
   }
   .expand-label {
-    font-size: 10px;
+  min-height: 44px;
+    font-size: 14px;
     padding: 6px;
   }
   .image-label {
     max-width: 55%;
-    font-size: 9px;
+    font-size: 14px;
   }
   .toast {
-    font-size: 13px;
+    font-size: 14px;
     padding: 12px;
   }
   .lightbox {
@@ -985,7 +1002,7 @@ select {
     gap: 6px;
   }
   .lightbox-footer p {
-    font-size: 11px;
+    font-size: 14px;
   }
   .detail-grid {
     gap: 15px;
@@ -1009,3 +1026,56 @@ select {
 
 /* Keep the whole reference vehicle visible across different source ratios. */
 .card-photo img, .hero-photo.gallery-trigger img { object-fit: contain; object-position: center; background: #e9edf1; }
+
+/* OPENLANE public-site type and control conventions, adapted to dense inventory. */
+h1, h2, h3 { font-weight: 600; }
+h2, h3 { line-height: 1.3; letter-spacing: -0.5px; }
+.intro > div:first-child { min-width: 0; }
+.intro > div > p:not(.eyebrow) { font-size: 20px; line-height: 1.6; max-width: 760px; }
+.card-meta, .card-bottom, .results { flex-wrap: wrap; gap: 12px; }
+.card h3 { margin: 14px 0 10px; }
+.card-body { padding: 24px; }
+.card p { line-height: 1.65; }
+.panel { padding: 28px; border-radius: 16px; }
+dl > div { font-size: 16px; }
+.filters { padding: 24px; border-radius: 16px; }
+.filters label { min-width: 0; }
+.filters label > span svg { width: 18px; height: 18px; }
+.back { min-height: 44px; }
+.hero-photo.gallery-trigger { border-radius: 16px; }
+.image-label { max-width: calc(100% - 24px); font-size: 12px; }
+.hero-photo .image-label { max-width: 55%; }
+.lot { font-size: 12px; }
+.bid-panel .price { font-size: clamp(36px, 4vw, 44px); }
+.lightbox button { border-radius: 50%; flex-shrink: 0; }
+.lightbox-header h2 { font-size: 20px; }
+.lightbox-footer p, .lightbox-footer small { font-size: 14px; }
+button { transition: background-color .15s, border-color .15s; }
+@media (max-width: 1100px) {
+  header { flex-wrap: wrap; border-radius: 28px; gap: 12px; }
+  header nav { order: 3; width: 100%; }
+  .prototype { margin-left: auto; }
+  .filters { flex-wrap: wrap; }
+  .search { flex-basis: 100%; }
+  .filters > label:not(.search) { flex: 1; }
+}
+@media (max-width: 700px) {
+  header { margin: 12px; padding: 16px; border-radius: 24px; }
+  header nav { flex-wrap: wrap; gap: 6px; justify-content: flex-start; }
+  .nav-item { flex: 1 1 auto; min-height: 44px; font-size: 14px; padding: 10px; gap: 6px; white-space: nowrap; }
+  .prototype { display: none; }
+  .intro > div > p:not(.eyebrow) { font-size: 18px; }
+  .intro h1 { line-height: 1.15; }
+  .detail-title h1 { font-size: 32px; line-height: 1.2; letter-spacing: -1px; overflow-wrap: anywhere; }
+  .filters { padding: 20px; }
+  .filters select { min-width: 0; }
+  .panel, .card-body { padding: 20px; }
+  .hero-photo { aspect-ratio: 1 / 1; }
+  .hero-photo .image-label { max-width: calc(100% - 24px); bottom: 62px; }
+  .expand-label { padding: 10px 14px; font-size: 14px; }
+  .lightbox-header h2 { font-size: 16px; }
+  .lightbox-footer p, .lightbox-footer small { font-size: 14px; }
+  dl > div { flex-wrap: wrap; gap: 4px 12px; }
+  dd { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) { button { transition: none; } }

@@ -86,3 +86,7 @@ Grant reported approximately **5 minutes of hands-on time on the initial baselin
 Add automated browser regression tests, test assistive technologies, and source exact year/trim/color imagery for the remaining reference mismatches. For a real marketplace, move bids and auction timing to an authoritative server with authenticated buyers, concurrency control, durable bid history, cross-session updates, and real condition photos.
 
 Original prompt: [CHALLENGE.md](CHALLENGE.md). Interview expectations: [WALKTHROUGH.md](WALKTHROUGH.md).
+
+### Visual styling
+
+The shared styles use the public [OPENLANE US site](https://www.openlane.com/) as a reference: Poppins, navy `#0a1b5f`, blue `#0061ff`, pill-shaped actions, outlined secondary actions, and a rounded white header. Typography is adapted for inventory: 16px body/fields, 14px supporting text, and larger headings and prices. Compact image labels and navigation counts use 12px. Mobile layouts preserve readable text and wrap controls instead of shrinking them. This is an independent implementation, not OPENLANE production CSS.
