@@ -501,3 +501,508 @@ footer span {
 .condition-summary {
   padding-bottom: 16px;
 }
+/* Public OPENLANE-inspired palette; original implementation. */
+:root {
+  color: #141b4d;
+  background: #f5f6f8;
+}
+p,
+.muted,
+.prototype,
+footer span {
+  color: #5c637b;
+}
+header {
+  background: #fff;
+  border-color: #e0e3eb;
+  gap: 28px;
+}
+.brand {
+  color: #141b4d;
+  white-space: nowrap;
+}
+.brand span {
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+header nav {
+  display: flex;
+  gap: 8px;
+  margin-right: auto;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 15px;
+  background: transparent;
+  color: #5c637b;
+  font-size: 13px;
+}
+.nav-item span {
+  font-size: 11px;
+  background: #e8ebf3;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+.nav-item.active {
+  background: #edf3ff;
+  color: #0055e8;
+}
+.nav-item:hover {
+  background: #edf3ff;
+}
+button {
+  background: #0055f5;
+  border-radius: 8px;
+}
+button:hover {
+  background: #0044c7;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline-color: #0055f5;
+}
+.eyebrow {
+  color: #0055dd;
+}
+.intro {
+  padding: 48px 0 32px;
+}
+.intro h1 {
+  max-width: 720px;
+  font-size: clamp(34px, 4vw, 54px);
+}
+.inventory-count {
+  border-color: #d7dce8;
+  min-width: 230px;
+  padding: 20px 0 20px 32px;
+}
+.inventory-count strong {
+  color: #0055f5;
+}
+.demo-note {
+  font-size: 11px;
+  color: #5c637b;
+}
+.filters {
+  background: #fff;
+  border: 1px solid #e0e3eb;
+}
+.filters label > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+input,
+select {
+  border-color: #cdd3e0;
+  color: #141b4d;
+}
+.card {
+  border-color: #e0e3eb;
+  border-radius: 12px;
+}
+.card:hover {
+  box-shadow: 0 8px 28px #141b4d12;
+}
+.card-photo {
+  aspect-ratio: 16/10;
+  flex-shrink: 0;
+}
+.card-photo > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.card-photo img {
+  object-position: center 60%;
+}
+.card-body {
+  padding: 20px;
+}
+.card h3 a {
+  text-decoration: none;
+}
+.card h3 a:hover {
+  color: #0055f5;
+  text-decoration: underline;
+}
+.card-meta {
+  color: #5c637b;
+  margin-top: 16px;
+}
+.card-bottom > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.watch-button {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: white;
+  color: #141b4d;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #141b4d20;
+}
+.watch-button:hover,
+.watch-button[aria-pressed="true"] {
+  background: #edf3ff;
+  color: #0055f5;
+}
+.image-label {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  background: #141b4ddb;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.auction-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.countdown {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #0055dd;
+}
+.countdown.closed {
+  color: #62697b;
+}
+.countdown.urgent {
+  color: #a54116;
+}
+.bid-status {
+  font-size: 11px;
+  background: #e3f3ed;
+  color: #206246;
+  padding: 4px 7px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.attention,
+.badges .attention {
+  background: #fff0e4;
+  color: #8b3f11;
+}
+.title-status {
+  background: #edf0f7;
+  color: #424d70;
+}
+.title-status.attention {
+  color: #8b3f11;
+  background: #fff0e4;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #bad8ca;
+  background: #edf8f2;
+  color: #1e6546;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.toast > svg {
+  flex-shrink: 0;
+}
+.toast span {
+  flex: 1;
+}
+.toast button {
+  background: transparent;
+  color: inherit;
+  padding: 8px;
+  display: grid;
+  place-items: center;
+}
+.outbid-banner,
+.storage-warning {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #fff1e7;
+  border: 1px solid #f2d2b9;
+  color: #8b3f11;
+  padding: 16px 20px;
+  margin: 0 0 20px;
+  border-radius: 8px;
+}
+.storage-warning {
+  margin-top: 20px;
+}
+.back {
+  color: #0055dd;
+}
+.save-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: -5px 0 24px;
+  width: fit-content;
+}
+.panel {
+  border-color: #e0e3eb;
+}
+.secondary {
+  background: #edf1fa;
+  color: #22407b;
+}
+.secondary:hover {
+  background: #dce6fa;
+}
+.hero-photo.gallery-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+}
+.expand-label {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: white;
+  color: #141b4d;
+}
+.thumbnails button {
+  width: calc(25% - 9px);
+  padding: 3px;
+  border-radius: 7px;
+}
+.thumbnails img {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.thumbnails button.active {
+  border-color: #0055f5;
+}
+.badges span {
+  background: #edf0f7;
+  color: #424d70;
+}
+.damage-heading {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.position {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px;
+  background: #eaf5ef;
+  color: #216447;
+  border-radius: 7px;
+}
+.position span {
+  font-size: 12px;
+}
+.position.attention {
+  color: #8b3f11;
+  background: #fff0e4;
+}
+.closed-message {
+  background: #f0f3fa;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+}
+.confirmation {
+  background: #edf3ff;
+}
+.confirmation > strong {
+  display: block;
+  margin-top: 10px;
+}
+.demo-controls {
+  margin-top: 24px;
+  border-top: 1px solid #e0e3eb;
+  padding-top: 16px;
+}
+.demo-controls summary {
+  cursor: pointer;
+  color: #5c637b;
+  font-size: 13px;
+  font-weight: 600;
+}
+.demo-controls summary svg {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.demo-controls p {
+  font-size: 12px;
+}
+.demo-controls button {
+  font-size: 12px;
+}
+.lightbox {
+  width: min(1100px, 95vw);
+  max-height: 95dvh;
+  padding: 18px;
+  border: 0;
+  border-radius: 12px;
+  color: #141b4d;
+}
+.lightbox::backdrop {
+  background: #0b1039df;
+}
+.lightbox-header,
+.lightbox-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.lightbox-header h2 {
+  font-size: 17px;
+}
+.lightbox button {
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  background: #edf1fa;
+  color: #141b4d;
+  min-width: 44px;
+  min-height: 44px;
+}
+.lightbox-image {
+  height: min(64dvh, 650px);
+  background: #101630;
+  margin-top: 10px;
+}
+.lightbox-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.lightbox-footer p {
+  text-align: center;
+  font-size: 13px;
+}
+.lightbox-footer small {
+  display: block;
+  font-size: 11px;
+}
+.empty > svg {
+  color: #0055dd;
+}
+@media (min-width: 1000px) {
+  .bid-panel {
+    position: sticky;
+    top: 20px;
+  }
+}
+@media (max-width: 1000px) {
+  header {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  header nav {
+    order: 3;
+    width: 100%;
+  }
+  .prototype {
+    margin-left: auto;
+  }
+  .inventory-count {
+    min-width: 180px;
+  }
+}
+@media (max-width: 700px) {
+  .nav-item {
+    padding: 12px 10px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  header nav {
+    gap: 2px;
+    justify-content: space-between;
+  }
+  .nav-item svg {
+    display: none;
+  }
+  .prototype {
+    max-width: 110px;
+    font-size: 10px;
+  }
+  .intro {
+    padding-top: 30px;
+  }
+  .intro h1 {
+    letter-spacing: -1.5px;
+  }
+  .expand-label {
+    font-size: 10px;
+    padding: 6px;
+  }
+  .image-label {
+    max-width: 55%;
+    font-size: 9px;
+  }
+  .toast {
+    font-size: 13px;
+    padding: 12px;
+  }
+  .lightbox {
+    padding: 10px;
+  }
+  .lightbox-header h2 {
+    font-size: 14px;
+  }
+  .lightbox-footer {
+    gap: 6px;
+  }
+  .lightbox-footer p {
+    font-size: 11px;
+  }
+  .detail-grid {
+    gap: 15px;
+  }
+}
+.card-photo {
+  overflow: hidden;
+}
+.card-photo > a {
+  position: absolute;
+  inset: 0;
+}
+.hero-photo.gallery-trigger img {
+  position: absolute;
+  inset: 0;
+  object-position: center 70%;
+}
+.card-photo img {
+  object-position: center 75%;
+}

@@ -1,7 +1,16 @@
 import React from "react";
+import {
+  Heart,
+  ArrowUpRight,
+  ShieldAlert,
+  Search,
+  SlidersHorizontal,
+} from "lucide-react";
 import inventory from "../data/vehicles.json";
 import Photo from "./Photo";
+import AuctionBadge from "./AuctionBadge";
 import { money, number } from "./format";
+import { illustration } from "./media";
 export default function Inventory({
   query,
   setQuery,
@@ -11,27 +20,60 @@ export default function Inventory({
   setSort,
   filtered,
   navigate,
+  watched,
+  toggleWatch,
+  now,
+  view,
+  outbid,
 }) {
+  const title =
+    view === "watchlist"
+      ? "Your next move. Saved."
+      : view === "bids"
+        ? "Every bid. In view."
+        : "Great inventory. Clear decisions.";
   return (
     <>
       <section className="intro">
         <div>
-          <p className="eyebrow">YOUR NEXT OPPORTUNITY</p>
-          <h1>
-            Find your next
-            <br />
-            great acquisition.
-          </h1>
-          <p>Explore dealer inventory. Know the condition. Bid with clarity.</p>
+          <p className="eyebrow">THE BUYER WORKSPACE</p>
+          <h1>{title}</h1>
+          <p>
+            {view === "watchlist"
+              ? "A shortlist worth coming back to."
+              : view === "bids"
+                ? "Track your position from the first bid to the final second."
+                : "Discover dealer inventory, understand the condition, and make your move."}
+          </p>
+          <span className="demo-note">
+            Simulated auctions · Illustrative photos · No real purchases
+          </span>
         </div>
         <div className="inventory-count">
-          <strong>{inventory.length}</strong>
-          <span>vehicles to explore</span>
+          <strong>
+            {view === "inventory" ? inventory.length : filtered.length}
+          </strong>
+          <span>
+            {view === "inventory"
+              ? "vehicles. one marketplace."
+              : view === "watchlist"
+                ? "on your radar"
+                : "bids to follow"}
+          </span>
         </div>
       </section>
+      {view === "bids" && outbid > 0 && (
+        <div className="outbid-banner">
+          <ShieldAlert size={20} />
+          {outbid} {outbid === 1 ? "vehicle needs" : "vehicles need"} your
+          attention. Open a vehicle to review your bid.
+        </div>
+      )}
       <section aria-label="Inventory filters" className="filters">
         <label className="search">
-          Search inventory
+          <span>
+            <Search size={14} /> Search inventory
+          </span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -54,44 +96,75 @@ export default function Inventory({
           Sort by
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="lot">Lot number</option>
+            <option value="ending">Ending soonest</option>
             <option value="price">Lowest price</option>
             <option value="mileage">Lowest mileage</option>
           </select>
         </label>
       </section>
       <div className="results">
-        <h2>Available inventory</h2>
+        <h2>
+          {view === "watchlist"
+            ? "Your watchlist"
+            : view === "bids"
+              ? "Your bidding activity"
+              : "Explore inventory"}
+        </h2>
         <span role="status">
           {filtered.length} {filtered.length === 1 ? "vehicle" : "vehicles"}
         </span>
       </div>
       <div className="grid">
         {filtered.map((v) => (
-          <a
-            className="card"
-            key={v.id}
-            href={`?vehicle=${v.id}`}
-            onClick={(e) => {
-              if (!e.metaKey && !e.ctrlKey) {
-                e.preventDefault();
-                navigate(v.id);
-              }
-            }}
-          >
+          <article className="card" key={v.id}>
             <div className="card-photo">
-              <Photo
-                src={v.images[0]}
-                alt={`${v.year} ${v.make} ${v.model} — supplied placeholder`}
-              />
+              <a
+                href={`?vehicle=${v.id}`}
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey) {
+                    e.preventDefault();
+                    navigate(v.id);
+                  }
+                }}
+                aria-label={`View ${v.year} ${v.make} ${v.model}, lot ${v.lot}`}
+              >
+                <Photo
+                  src={illustration(v).src}
+                  alt={`Illustrative ${v.body_style} stock photo; not the listed vehicle`}
+                />
+              </a>
               <span className="lot">{v.lot}</span>
+              <button
+                className="watch-button"
+                aria-label={`${watched.has(v.id) ? "Remove" : "Save"} ${v.lot} ${watched.has(v.id) ? "from" : "to"} watchlist`}
+                aria-pressed={watched.has(v.id)}
+                onClick={() => toggleWatch(v.id)}
+              >
+                <Heart
+                  size={19}
+                  fill={watched.has(v.id) ? "currentColor" : "none"}
+                />
+              </button>
+              <span className="image-label">Illustrative photo</span>
             </div>
             <div className="card-body">
+              <AuctionBadge vehicle={v} now={now} />
               <div className="card-meta">
                 <span>{v.body_style}</span>
-                <span>Grade {v.condition_grade.toFixed(1)}</span>
+                <span>Condition {v.condition_grade.toFixed(1)}</span>
               </div>
               <h3>
-                {v.year} {v.make} {v.model}
+                <a
+                  href={`?vehicle=${v.id}`}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey) {
+                      e.preventDefault();
+                      navigate(v.id);
+                    }
+                  }}
+                >
+                  {v.year} {v.make} {v.model}
+                </a>
               </h3>
               <p>
                 {v.trim} · {number(v.odometer_km)} km
@@ -101,11 +174,7 @@ export default function Inventory({
               </p>
               <div className="condition-summary">
                 <span
-                  className={
-                    v.title_status === "clean"
-                      ? "title-status"
-                      : "title-status attention"
-                  }
+                  className={`title-status ${v.title_status === "clean" ? "" : "attention"}`}
                 >
                   Title: {v.title_status}
                 </span>
@@ -120,7 +189,7 @@ export default function Inventory({
                   <p>
                     {v.damage_notes[0]}
                     {v.damage_notes.length > 1
-                      ? ` · +${v.damage_notes.length - 1} more in details`
+                      ? ` · +${v.damage_notes.length - 1} more`
                       : ""}
                   </p>
                 )}
@@ -133,26 +202,43 @@ export default function Inventory({
                   <strong>{money(v.current_bid || v.starting_bid)}</strong>
                 </div>
                 <span>
-                  {v.my_bid ? "Your bid placed ✓" : `${v.bid_count} bids`} →
+                  {v.bid_count} {v.bid_count === 1 ? "bid" : "bids"}
+                  <ArrowUpRight size={16} />
                 </span>
               </div>
             </div>
-          </a>
+          </article>
         ))}
       </div>
       {!filtered.length && (
-        <div className="empty">
-          <h2>No matching vehicles</h2>
-          <p>Try a different search or body style.</p>
+        <section className="empty">
+          <SlidersHorizontal size={30} />
+          <h2>
+            {query || body
+              ? "No matching vehicles"
+              : view === "watchlist"
+                ? "Your watchlist starts here"
+                : view === "bids"
+                  ? "Your first bid is ahead"
+                  : "No vehicles available"}
+          </h2>
+          <p>
+            {query || body
+              ? "Try a different search or clear the filters."
+              : view === "watchlist"
+                ? "Save a vehicle with the heart button to keep it here."
+                : "Explore a vehicle, review its condition, and place a demo bid."}
+          </p>
           <button
             onClick={() => {
               setQuery("");
               setBody("");
+              if (!query && !body) navigate(null, "inventory");
             }}
           >
-            Clear filters
+            {query || body ? "Clear filters" : "Explore inventory"}
           </button>
-        </div>
+        </section>
       )}
     </>
   );

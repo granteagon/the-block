@@ -1,9 +1,17 @@
-import React, { useState } from "react";
-import Photo from "./Photo";
+import React from "react";
+import { Heart, ShieldAlert } from "lucide-react";
+import Gallery from "./Gallery";
 import BidPanel from "./BidPanel";
 import { number } from "./format";
-export default function Detail({ vehicle: v, back, bid, notice }) {
-  const [photo, setPhoto] = useState(0);
+export default function Detail({
+  vehicle: v,
+  back,
+  bid,
+  now,
+  watched,
+  toggleWatch,
+  changeEnd,
+}) {
   return (
     <>
       <button className="back" onClick={back}>
@@ -20,39 +28,29 @@ export default function Detail({ vehicle: v, back, bid, notice }) {
           {v.trim} · {number(v.odometer_km)} km · {v.drivetrain}
         </p>
       </div>
+      <button
+        className="save-detail secondary"
+        aria-pressed={watched}
+        onClick={toggleWatch}
+      >
+        <Heart size={18} fill={watched ? "currentColor" : "none"} />
+        {watched ? "Saved to watchlist" : "Save to watchlist"}
+      </button>
       <div className="detail-grid">
         <div>
-          <div className="hero-photo">
-            <Photo
-              key={photo}
-              src={v.images[photo]}
-              alt={`${v.year} ${v.make} ${v.model} photo ${photo + 1} — supplied placeholder`}
-            />
-          </div>
-          <div className="thumbnails" aria-label="Vehicle photos">
-            {v.images.map((src, i) => (
-              <button
-                key={src}
-                className={photo === i ? "active" : ""}
-                onClick={() => setPhoto(i)}
-                aria-label={`Show photo ${i + 1}`}
-                aria-pressed={photo === i}
-              >
-                <Photo src={src} alt={`Photo ${i + 1}`} />
-              </button>
-            ))}
-          </div>
-          <p className="muted">
-            Dataset photos are placeholders, not actual vehicle images.
-          </p>
+          <Gallery vehicle={v} />
           <section className="panel">
             <h2>Condition & disclosures</h2>
             <div className="badges">
               <span>Condition grade: {v.condition_grade.toFixed(1)}</span>
-              <span>Title: {v.title_status}</span>
+              <span className={v.title_status !== "clean" ? "attention" : ""}>
+                Title: {v.title_status}
+              </span>
             </div>
             <p>{v.condition_report}</p>
-            <h3>Damage notes</h3>
+            <h3 className="damage-heading">
+              <ShieldAlert size={19} /> Damage notes
+            </h3>
             {v.damage_notes.length ? (
               <ul>
                 {v.damage_notes.map((note) => (
@@ -86,7 +84,7 @@ export default function Detail({ vehicle: v, back, bid, notice }) {
           </section>
         </div>
         <aside>
-          <BidPanel vehicle={v} bid={bid} notice={notice} />
+          <BidPanel vehicle={v} bid={bid} now={now} changeEnd={changeEnd} />
           <section className="panel">
             <p className="eyebrow">SELLING DEALERSHIP</p>
             <h3>{v.selling_dealership}</h3>

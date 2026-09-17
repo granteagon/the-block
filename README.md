@@ -1,64 +1,88 @@
 # The Block
 
-A responsive buyer-side vehicle auction prototype built with React and Vite using the supplied 200-vehicle dataset.
+A responsive buyer-side auction prototype built with React + Vite and the supplied 200-vehicle dataset. Browse inventory, inspect condition disclosures, save a shortlist, place a bid, and track your position through auction closure.
 
 ## Run locally
 
-Use Node.js 22.12+ (verified with Node 26) and npm.
+Use Node.js 22.12+ and npm (development verified on Node 26).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open the local URL Vite prints (normally http://localhost:5173).
+Open the URL Vite prints, normally http://localhost:5173.
 
 ```sh
-npm test        # bid rules and state transitions
+npm test        # domain and persistence tests
 npm run build  # production bundle
 npm run preview
 ```
 
 ## What is included
 
-- Inventory search by year, make, model, trim, location, and lot number.
-- Body-style filtering and sorting by lot, price, or mileage.
-- Condition grade, title status, damage-note count, and the first reported issue visible on inventory cards.
-- Shareable vehicle detail URLs with specifications, dealership, condition report, title status, damage notes, and photo selection.
-- Bid validation, an explicit review/confirmation step, updated bid price/count, and local persistence across reloads.
-- Responsive layouts, labeled controls, keyboard focus indicators, and status announcements.
+- Search by year, make, model, trim, location, and lot; filter by body style and sort by price, mileage, lot, or closing time.
+- Vehicle details with specifications, dealership, title status, condition report, and damage disclosures. Inventory cards expose title issues and damage summaries.
+- Locally saved Watchlist and My bids views, including leading/outbid and final auction positions.
+- Whole-dollar bid validation, explicit confirmation, visible feedback, and local persistence.
+- Stable simulated deadlines, live countdowns, closed-auction enforcement, and reserve-aware results.
+- Optional **Demo controls** on each detail page: simulate a competing bid, close the auction, or reopen it for 45 minutes.
+- Illustrative stock photography, the original placeholder images, and a modal photo viewer with arrow-key navigation, Escape dismissal, focus restoration, and native dialog focus containment.
+- Responsive desktop/mobile layouts, labeled controls, keyboard focus indicators, and announced bid feedback.
 
-## Assumptions and scope
+## A two-minute demo
 
-This is a frontend-only demo. No accounts, backend, payments, seller tools, or real bidding are involved. All prices are assumed to be CAD. All vehicles are available to bid on; synthetic auction start timestamps are not used to imply real scheduling or countdowns.
+1. Search `A-0001`, save the vehicle with its heart button, and open Watchlist.
+2. Open the vehicle and inspect condition disclosures. Open the photo viewer and use the arrow keys and Escape.
+3. Review and confirm a bid. Open My bids to see your position.
+4. Open **Demo controls** and select **Simulate competing bid**. My bids now shows an outbid warning. Your own highest bid remains distinct from the auction price.
+5. Bid again, then select **Close auction now**. Bidding is disabled. The outcome depends on both your position and whether the reserve was met.
+6. Select **Reopen for 45 minutes** to keep exploring. Reload to verify bids, watchlist, and deadlines persist.
 
-An opening bid must meet the starting price. Subsequent bids must exceed the current bid by at least CAD 100, using whole-dollar amounts. Reserve status is shown without exposing the reserve amount. Buy-now is outside this initial scope.
+If a vehicle has already closed, reopen it using Demo controls before bidding.
 
-Bids are saved in localStorage in the current browser. There is no server authority, competing-bid simulation, or synchronization between tabs. Clearing browser storage resets demo bids. The app can continue for the current session if storage is unavailable.
+## Scope and assumptions
 
-The supplied image URLs are placeholders, explicitly labeled in vehicle details. An image failure displays a fallback. Google Fonts are optional, with system font fallbacks.
+This is frontend-only. There are no real bids, accounts, payments, backend, seller tools, or production integrations. Prices are assumed to be CAD. The immutable original dataset is unchanged.
 
-## Structure and decisions
+**Auction rules:** the opening bid must meet the starting price. Each subsequent bid must exceed the current bid by at least CAD 100, in whole dollars. Reserve status is visible, but the reserve amount is not shown in the UI. A highest bidder wins the simulation only when the reserve is met. Buy-now and proxy bidding are intentionally omitted.
 
-- `src/App.jsx`: shared state and URL navigation.
-- `src/Inventory.jsx`, `src/Detail.jsx`, `src/BidPanel.jsx`, `src/Photo.jsx`: focused UI components.
-- `src/storage.js`: validated bid persistence with graceful storage-failure handling.
-- `src/auction.js`: pure bid rules, shared by review/confirmation and tested independently.
-- `src/style.css`: responsive presentation.
-- `data/vehicles.json`: original inventory, unmodified.
+**Time:** the dataset supplies synthetic start timestamps but no end times. On first visit, the prototype creates and saves a local clock anchor. Auctions run from 45 to 164 minutes from that anchor, with every twentieth lot initially closed to make the state discoverable. Reloading does not restart the clock. An explicit reopen changes only that vehicle's deadline and preserves its bids. The client clock is not trustworthy for real auctions.
 
-A small React application keeps the browse → inspect → bid flow easy to follow. Native controls avoid unnecessary dependencies; URL query parameters support direct vehicle links and browser history.
+**Competition:** competing bids are triggered only through an explicit demo button. No random background bidder changes the user's position. Bid confirmation revalidates the latest in-memory auction state and current deadline.
+
+**Persistence:** bids and preferences use localStorage. Invalid saved entries are ignored, and arbitrary saved fields cannot override the vehicle dataset. When writes fail, the app retains session state and displays a warning. There is no synchronization between tabs, devices, or buyers. Clear this site's browser storage to reset the demo entirely.
+
+**Photos:** four licensed stock images provide illustrative vehicle imagery by broad body style, not exact make/model/year. Sedan and coupe listings share one car illustration. Labels explicitly distinguish these from actual vehicle evidence. All supplied dataset placeholders remain accessible in the gallery. Stock assets are bundled locally; placeholder URLs and optional Google Fonts require a network connection. See [image credits](docs/IMAGE_CREDITS.md).
+
+## Design reference
+
+The [OPENLANE Canada buyer page](https://www.openlane.ca/en/buyers/) informed the navy/blue palette, bold typography, watchlist workflow, and attention to bid status and condition reports. Their public materials describe watchlists, bid notifications, and timed auctions. This is an original implementation; no proprietary production source code, marketplace data, or private APIs were copied. It is an independent coding challenge prototype, not an official OPENLANE product.
+
+## Code map and decisions
+
+- `src/App.jsx`: shared buyer state, URL navigation, local clock, bid orchestration.
+- `src/Inventory.jsx`: search/filter controls, cards, and personal inventory views.
+- `src/Detail.jsx`, `src/BidPanel.jsx`, `src/Gallery.jsx`: inspection, bidding, demo controls, and photo viewing.
+- `src/auction.js`: pure bid validation, closing rules, position labels, and countdown formatting.
+- `src/storage.js`: validated persistence and graceful storage-failure handling.
+- `src/media.js`: illustrative asset mapping and attribution.
+- `src/style.css`: responsive styling. Lucide supplies icons.
+
+A small React application and native browser controls keep the prototype explainable. Separating auction rules from UI allows meaningful deterministic tests without waiting for timers. Explicit demo controls make edge cases reproducible during the walkthrough.
 
 ## Validation
 
-`npm test` covers opening bids, minimum increases, invalid amounts, accepted bid state transitions, blocked storage, malformed saved data, and persistence round trips. `npm run build` checks production bundling. Manual browser checks cover mobile detail/inventory layouts at 320px and 390px (no horizontal overflow at 320px), empty search and recovery, invalid bids, cancellation without state changes, browser back preserving search, photo selection, successful mobile bid confirmation, and bid persistence after reload. These checks do not establish cross-browser or assistive-technology compatibility.
+`npm test` covers opening bids, minimum increases, invalid amounts, immutable state transitions, deadline boundaries, competing bids, reserve-aware outcomes, deterministic scheduling, blocked storage, malformed data, and bid/watchlist/deadline persistence.
+
+Manual in-app browser checks cover search, empty-state recovery, browser back, saving and reloading a watchlist, My bids, outbid/rebid/close/reopen flows, photo navigation, Escape dismissal, and responsive layouts. These checks do not establish comprehensive cross-browser or screen-reader compatibility.
+
+## Time and AI assistance
+
+Grant reported approximately **5 minutes of hands-on time on the initial baseline**, followed by additional AI-assisted feature development and validation. That figure is not the total elapsed development time. Codex assisted with implementation, public-site research, tests, documentation, and browser checks. Review the code and update the total hands-on time if further preparation changes it.
 
 ## With more time
 
-Add automated end-to-end coverage for search and bidding, and test screen-reader navigation. Real auctions would require server validation, concurrent-bid handling, authenticated buyers, authoritative scheduling, and a durable bid history.
+Add automated browser regression tests, test assistive technologies, and source representative imagery for each exact model. For a real marketplace, move bids and auction timing to an authoritative server with authenticated buyers, concurrency control, durable bid history, cross-session updates, and real condition photos.
 
-## Workflow and time
-
-Initial baseline created with Codex assistance. Review the implementation and record total time spent before submission. Be prepared to explain the bid rules, local persistence, and intentional auction simplifications.
-
-Original challenge: [CHALLENGE.md](CHALLENGE.md). Interview expectations: [WALKTHROUGH.md](WALKTHROUGH.md).
+Original prompt: [CHALLENGE.md](CHALLENGE.md). Interview expectations: [WALKTHROUGH.md](WALKTHROUGH.md).
