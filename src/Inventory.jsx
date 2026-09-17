@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import inventory from "../data/vehicles.json";
 import Photo from "./Photo";
+import Select from "./Select";
 import AuctionBadge from "./AuctionBadge";
 import { money, number } from "./format";
 import { illustration } from "./media";
@@ -83,23 +84,25 @@ export default function Inventory({
         </label>
         <label>
           Body style
-          <select value={body} onChange={(e) => setBody(e.target.value)}>
+          <Select value={body} onChange={(e) => setBody(e.target.value)}>
             <option value="">All body styles</option>
             {[...new Set(inventory.map((v) => v.body_style))]
               .sort()
               .map((x) => (
-                <option key={x}>{x}</option>
+                <option key={x} value={x}>
+                  {x.charAt(0).toUpperCase() + x.slice(1)}
+                </option>
               ))}
-          </select>
+          </Select>
         </label>
         <label>
           Sort by
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <Select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="lot">Lot number</option>
             <option value="ending">Ending soonest</option>
             <option value="price">Lowest price</option>
             <option value="mileage">Lowest mileage</option>
-          </select>
+          </Select>
         </label>
       </section>
       <div className="results">
@@ -128,10 +131,7 @@ export default function Inventory({
                 }}
                 aria-label={`View ${v.year} ${v.make} ${v.model}, lot ${v.lot}`}
               >
-                <Photo
-                  src={illustration(v).src}
-                  alt={illustration(v).alt}
-                />
+                <Photo src={illustration(v).src} alt={illustration(v).alt} />
               </a>
               <span className="lot">{v.lot}</span>
               <button
@@ -149,7 +149,9 @@ export default function Inventory({
             <div className="card-body">
               <AuctionBadge vehicle={v} now={now} />
               <div className="card-meta">
-                <span>{v.body_style.charAt(0).toUpperCase() + v.body_style.slice(1)}</span>
+                <span>
+                  {v.body_style.charAt(0).toUpperCase() + v.body_style.slice(1)}
+                </span>
                 <span>Condition {v.condition_grade.toFixed(1)}</span>
               </div>
               <h3>

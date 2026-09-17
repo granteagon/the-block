@@ -1,21 +1,25 @@
 import React from "react";
-import { Heart, ShieldAlert } from "lucide-react";
+import { Heart, ShieldAlert, Zap } from "lucide-react";
 import Gallery from "./Gallery";
 import BidPanel from "./BidPanel";
-import { number } from "./format";
+import { minimumBid, isClosed } from "./auction";
+import { money, number } from "./format";
 export default function Detail({
   vehicle: v,
   back,
+  backLabel = "← Back to inventory",
   bid,
   now,
   watched,
   toggleWatch,
   changeEnd,
+  autoRules = [],
+  manageRules,
 }) {
   return (
     <>
       <button className="back" onClick={back}>
-        ← Back to inventory
+        {backLabel}
       </button>
       <div className="detail-title">
         <p className="eyebrow">
@@ -84,6 +88,33 @@ export default function Detail({
           </section>
         </div>
         <aside>
+          {autoRules.length > 0 && (
+            <div className="auto-policy">
+              <Zap size={22} />
+              <div>
+                <strong>
+                  {isClosed(v, now)
+                    ? "Auto-bidding ended"
+                    : minimumBid(v) >
+                          Math.max(...autoRules.map((r) => r.maxBid)) &&
+                        v.my_bid !== v.current_bid
+                      ? "Auto-bid limit reached"
+                      : "Auto-bid active"}
+                </strong>
+                <p>
+                  Maximum {money(Math.max(...autoRules.map((r) => r.maxBid)))}{" "}
+                  per vehicle.{" "}
+                  {autoRules.length > 1
+                    ? "Highest limit across matching rules applies."
+                    : autoRules[0].name}
+                </p>
+                <button className="quiet-button" onClick={manageRules}>
+                  Manage buying rules →
+                </button>
+              </div>
+            </div>
+          )}
+
           <BidPanel vehicle={v} bid={bid} now={now} changeEnd={changeEnd} />
           <section className="panel">
             <p className="eyebrow">SELLING DEALERSHIP</p>
