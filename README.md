@@ -27,7 +27,7 @@ npm run preview
 - Whole-dollar bid validation, explicit confirmation, visible feedback, and local persistence.
 - Stable simulated deadlines, live countdowns, closed-auction enforcement, and reserve-aware results.
 - Optional **Demo controls** on each detail page: simulate a competing bid, close the auction, or reopen it for 45 minutes.
-- Illustrative stock photography, the original placeholder images, and a modal photo viewer with arrow-key navigation, Escape dismissal, focus restoration, and native dialog focus containment.
+- Make/model reference photography, the original placeholder images, and a modal photo viewer with arrow-key navigation, Escape dismissal, focus restoration, and native dialog focus containment.
 - Responsive desktop/mobile layouts, labeled controls, keyboard focus indicators, and announced bid feedback.
 
 ## A two-minute demo
@@ -53,7 +53,7 @@ This is frontend-only. There are no real bids, accounts, payments, backend, sell
 
 **Persistence:** bids and preferences use localStorage. Invalid saved entries are ignored, and arbitrary saved fields cannot override the vehicle dataset. When writes fail, the app retains session state and displays a warning. There is no synchronization between tabs, devices, or buyers. Clear this site's browser storage to reset the demo entirely.
 
-**Photos:** four licensed stock images provide illustrative vehicle imagery by broad body style, not exact make/model/year. Sedan and coupe listings share one car illustration. Labels explicitly distinguish these from actual vehicle evidence. All supplied dataset placeholders remain accessible in the gallery. Stock assets are bundled locally; placeholder URLs and optional Google Fonts require a network connection. See [image credits](docs/IMAGE_CREDITS.md).
+**Photos:** all 200 listings have make/model reference photographs, using 156 locally bundled, visually reviewed Wikimedia Commons images. 159 listings match the source-described year or year range; the others disclose a different or unverified year in the gallery. Paint, trim, equipment, market and condition may differ. These are not photos of the synthetic VINs. The supplied 2016 Bronco and 2018 Telluride have inconsistent model years, disclosed without changing the dataset. Each gallery links its author, source and license; resized JPEGs retain their original licenses. All dataset placeholders remain available. Placeholder URLs and optional Google Fonts require a network connection. See [image credits](docs/IMAGE_CREDITS.md) and the per-listing manifest in `src/vehicle-photos.json`.
 
 ## Design reference
 
@@ -83,6 +83,6 @@ Grant reported approximately **5 minutes of hands-on time on the initial baselin
 
 ## With more time
 
-Add automated browser regression tests, test assistive technologies, and source representative imagery for each exact model. For a real marketplace, move bids and auction timing to an authoritative server with authenticated buyers, concurrency control, durable bid history, cross-session updates, and real condition photos.
+Add automated browser regression tests, test assistive technologies, and source exact year/trim/color imagery for the remaining reference mismatches. For a real marketplace, move bids and auction timing to an authoritative server with authenticated buyers, concurrency control, durable bid history, cross-session updates, and real condition photos.
 
 Original prompt: [CHALLENGE.md](CHALLENGE.md). Interview expectations: [WALKTHROUGH.md](WALKTHROUGH.md).

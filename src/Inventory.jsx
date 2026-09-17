@@ -130,7 +130,7 @@ export default function Inventory({
               >
                 <Photo
                   src={illustration(v).src}
-                  alt={`Illustrative ${v.body_style} stock photo; not the listed vehicle`}
+                  alt={illustration(v).alt}
                 />
               </a>
               <span className="lot">{v.lot}</span>
@@ -145,7 +145,7 @@ export default function Inventory({
                   fill={watched.has(v.id) ? "currentColor" : "none"}
                 />
               </button>
-              <span className="image-label">Illustrative photo</span>
+              <span className="image-label">{illustration(v).yearMatches ? "Model/year reference" : "Model reference"}</span>
             </div>
             <div className="card-body">
               <AuctionBadge vehicle={v} now={now} />

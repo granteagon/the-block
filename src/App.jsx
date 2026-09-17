@@ -232,7 +232,7 @@ export default function App() {
       <footer>
         <strong>THE BLOCK</strong>
         <span>
-          Independent coding prototype · Illustrative stock photos · Simulated
+          Independent coding prototype · Vehicle reference photos · Simulated
           auctions and bids · CAD
         </span>
       </footer>

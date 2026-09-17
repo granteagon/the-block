@@ -5,7 +5,7 @@ import { illustration } from "./media";
 export default function Gallery({ vehicle: v }) {
   const stock = illustration(v);
   const photos = [
-    { src: stock.src, label: "Illustrative stock photo" },
+    { src: stock.src, label: stock.label },
     ...v.images.map((src, i) => ({
       src,
       label: `Dataset placeholder ${i + 1}`,
@@ -62,12 +62,13 @@ export default function Gallery({ vehicle: v }) {
         ))}
       </div>
       <p className="muted">
-        Stock image is illustrative; make, model, year and condition may differ.
-        Original dataset images remain available as placeholders.{" "}
+        {stock.note} Paint, trim, equipment and condition may differ.
+        This is a reference image, not the listed vehicle. Original dataset images remain available as placeholders.{" "}
         <a href={stock.url} target="_blank" rel="noreferrer">
           Photo: {stock.credit}
         </a>
-        .
+        {" · "}<a href={stock.licenseUrl || stock.url} target="_blank" rel="noreferrer">{stock.license}</a>
+        {" · Resized / JPEG conversion."}
       </p>
       <dialog
         ref={dialog}

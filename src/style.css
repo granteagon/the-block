@@ -1006,3 +1006,6 @@ select {
 .card-photo img {
   object-position: center 75%;
 }
+
+/* Keep the whole reference vehicle visible across different source ratios. */
+.card-photo img, .hero-photo.gallery-trigger img { object-fit: contain; object-position: center; background: #e9edf1; }
